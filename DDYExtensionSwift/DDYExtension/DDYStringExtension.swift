@@ -15,6 +15,32 @@ extension DDYWrapperProtocol where DDYT == String {
     public func trimPerCharacter(in characterStr: String) -> String {
         return ddyValue.trimmingCharacters(in: CharacterSet.init(charactersIn: characterStr))
     }
+
+    /// 顺序查找指定子串，每个字符只扫描一次，不重复扫描。返回Range数组
+    func ranges(of string: String) -> [Range<String.Index>] {
+        var rangeArray = [Range<String.Index>]()
+        var searchedRange: Range<String.Index>
+        guard let sr = ddyValue.range(of: ddyValue) else {
+            return rangeArray
+        }
+        searchedRange = sr
+
+        var resultRange = ddyValue.range(of: string, options: .regularExpression, range: searchedRange, locale: nil)
+        while let range = resultRange {
+            rangeArray.append(range)
+            searchedRange = Range(uncheckedBounds: (range.upperBound, searchedRange.upperBound))
+            resultRange = ddyValue.range(of: string, options: .regularExpression, range: searchedRange, locale: nil)
+        }
+        return rangeArray
+    }
+
+    /// 顺序查找指定子串，每个字符只扫描一次，不重复扫描。返回NSRange数组
+    func nsranges(of string: String) -> [NSRange] {
+        return ranges(of: string).map {
+            NSRange($0, in: ddyValue)
+        }
+    }
+
     /// json字符串格式化输出
     public func jsonFormat() -> String {
 
