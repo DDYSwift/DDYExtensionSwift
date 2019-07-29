@@ -56,4 +56,5 @@ public func ddySwizzle(_ oldSel: Selector,_ newSel: Selector, swizzleClass: AnyC
 
 public func swizzleAllRegistedMethodWhenDidFinishLaunching() {
     UILabel.ddySwizzleMethod()
+    UIButton.ddySwizzleMethod() 
 }
