@@ -17,20 +17,31 @@ class ViewController: UIViewController {
         testExtentsionView()
         testStringRange()
         testExtensionButton()
+        testImageView()
+    }
+
+    private func testImageView() {
+        var images:[UIImage]! = []
+        images.append(colorImage(UIColor.red, 50, 50)!)
+        images.append(colorImage(UIColor.black, 50, 50)!)
+        images.append(colorImage(UIColor.blue, 50, 50)!)
+        images.append(colorImage(UIColor.green, 50, 50)!)
+        images.append(colorImage(UIColor.yellow, 50, 50)!)
+
+        let imageView = UIImageView()
+        imageView.animationImages = images
+        imageView.animationRepeatCount = 0
+        imageView.animationDuration = 5 * 0.5
+        imageView.startAnimating()
+        view.addSubview(imageView)
+        imageView.snp.makeConstraints { (make) in
+            make.left.equalTo(view.snp_left).offset(10)
+            make.top.equalTo(view.snp_top).offset(180)
+            make.width.height.equalTo(50)
+        }
     }
 
     private func testExtensionButton() {
-
-        func colorImage(_ color: UIColor,_ width: CGFloat,_ height: CGFloat) -> UIImage? {
-            let rect = CGRect(x: 0.0, y: 0.0, width: width, height: height)
-            UIGraphicsBeginImageContext(rect.size)
-            let context = UIGraphicsGetCurrentContext()
-            context?.setFillColor(color.cgColor)
-            context?.fill(rect)
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return image ?? nil
-        }
 
         var button1 = UIButton(type: .custom)
         button1.setImage(colorImage(UIColor.blue, 25, 25), for: .normal)
@@ -39,6 +50,11 @@ class ViewController: UIViewController {
         button1.ddy.style = .imageRight
         button1.ddy.padding = 5
         button1.contentEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 30)
+        button1.setTitleShadowColor(UIColor.red, for: .normal)
+        button1.titleLabel?.shadowOffset = CGSize(width: -1.5, height: -1.5)
+        button1.titleLabel?.font = UIFont(name: "Zapfino", size: 13)
+//        button1.addTarget(self, action: #selector(handleTap), for: UIControl.Event.touchUpInside)
+//        button1.setImage(UIImage(named:"icon")?.withRenderingMode(.alwaysOriginal), for:.normal)
         view.addSubview(button1)
         button1.snp.makeConstraints { (make) in
             make.left.equalTo(view.snp_left).offset(200)
@@ -80,6 +96,17 @@ class ViewController: UIViewController {
 
     @objc func testTap(_ tap: UIGestureRecognizer) {
         print("\(tap)")
+    }
+
+    private func colorImage(_ color: UIColor,_ width: CGFloat,_ height: CGFloat) -> UIImage? {
+        let rect = CGRect(x: 0.0, y: 0.0, width: width, height: height)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        context?.setFillColor(color.cgColor)
+        context?.fill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image ?? nil
     }
 }
 
