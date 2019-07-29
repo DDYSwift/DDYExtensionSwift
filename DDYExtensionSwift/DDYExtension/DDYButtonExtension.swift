@@ -104,7 +104,6 @@ extension UIButton {
         case .imageRight: horizontal(self.titleLabel!, self.imageView!)
         case .imageTop: vertical(self.imageView!, self.titleLabel!, self.frame.size)
         case .imageBottom: vertical(self.titleLabel!, self.imageView!, self.frame.size)
-        case .defaultStyle: return
         default: return
         }
     }
