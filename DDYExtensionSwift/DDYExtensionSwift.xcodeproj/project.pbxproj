@@ -57,6 +57,8 @@
 		037D168722EDE49900F4B244 /* ConstraintLayoutGuide+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037D166522EDE49900F4B244 /* ConstraintLayoutGuide+Extensions.swift */; };
 		037D168822EDE49900F4B244 /* ConstraintLayoutSupportDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037D166622EDE49900F4B244 /* ConstraintLayoutSupportDSL.swift */; };
 		037D168922EDE49900F4B244 /* ConstraintMakerRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037D166722EDE49900F4B244 /* ConstraintMakerRelatable.swift */; };
+		9CEC48C722F05C6B005BE6D8 /* DDYTextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEC48C622F05C6B005BE6D8 /* DDYTextFieldExtension.swift */; };
+		9CEC48C922F1613D005BE6D8 /* DDYConsoleUnicode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEC48C822F1613D005BE6D8 /* DDYConsoleUnicode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +114,8 @@
 		037D166522EDE49900F4B244 /* ConstraintLayoutGuide+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConstraintLayoutGuide+Extensions.swift"; sourceTree = "<group>"; };
 		037D166622EDE49900F4B244 /* ConstraintLayoutSupportDSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintLayoutSupportDSL.swift; sourceTree = "<group>"; };
 		037D166722EDE49900F4B244 /* ConstraintMakerRelatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMakerRelatable.swift; sourceTree = "<group>"; };
+		9CEC48C622F05C6B005BE6D8 /* DDYTextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDYTextFieldExtension.swift; sourceTree = "<group>"; };
+		9CEC48C822F1613D005BE6D8 /* DDYConsoleUnicode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDYConsoleUnicode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +169,8 @@
 				037D163622EDE1CC00F4B244 /* DDYButtonExtension.swift */,
 				037D163422EDE1CC00F4B244 /* DDYStringExtension.swift */,
 				037D163822EDE1CC00F4B244 /* DDYTimerExtension.swift */,
+				9CEC48C622F05C6B005BE6D8 /* DDYTextFieldExtension.swift */,
+				9CEC48C822F1613D005BE6D8 /* DDYConsoleUnicode.swift */,
 				037D162F22EDE1CC00F4B244 /* DDYConst.swift */,
 				037D163022EDE1CC00F4B244 /* DDYCrypt.swift */,
 				037D163322EDE1CC00F4B244 /* DDYConvertTool.swift */,
@@ -318,6 +324,7 @@
 				037D166C22EDE49900F4B244 /* ConstraintAttributes.swift in Sources */,
 				037D166F22EDE49900F4B244 /* ConstraintInsets.swift in Sources */,
 				037D167D22EDE49900F4B244 /* ConstraintMakerEditable.swift in Sources */,
+				9CEC48C922F1613D005BE6D8 /* DDYConsoleUnicode.swift in Sources */,
 				037D163C22EDE1CC00F4B244 /* DDYExtensionBase.swift in Sources */,
 				037D167C22EDE49900F4B244 /* ConstraintOffsetTarget.swift in Sources */,
 				037D167322EDE49900F4B244 /* ConstraintPriority.swift in Sources */,
@@ -331,6 +338,7 @@
 				037D168022EDE49900F4B244 /* ConstraintLayoutGuideDSL.swift in Sources */,
 				037D161D22EDE0E700F4B244 /* AppDelegate.swift in Sources */,
 				037D164122EDE1CC00F4B244 /* DDYButtonExtension.swift in Sources */,
+				9CEC48C722F05C6B005BE6D8 /* DDYTextFieldExtension.swift in Sources */,
 				037D166A22EDE49900F4B244 /* ConstraintDescription.swift in Sources */,
 				037D167122EDE49900F4B244 /* ConstraintDSL.swift in Sources */,
 			);
