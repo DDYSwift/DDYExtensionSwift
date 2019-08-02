@@ -18,6 +18,7 @@ class ViewController: UIViewController {
         testStringRange()
         testExtensionButton()
         testImageView()
+        testNil()
     }
 
     private func testImageView() {
@@ -65,8 +66,41 @@ class ViewController: UIViewController {
     private func testStringRange() {
         let allStr = "1234567890"
         let subStr = "456"
-        let ranges = allStr.ddy.nsranges(of: subStr)
+        let ranges = allStr.ddy.nsrangesArray(of: subStr)
         print("\(ranges)")
+
+        let endStr1 = allStr.ddy.convertToPinYin(true)
+        let endStr2 = "".ddy.convertToPinYin(true)
+        print("hhhh : \(endStr1!) \(endStr2!)")
+
+        let a = 44321
+        let b = String(format: "%09d", a)
+        print("TreeNewBee: \(b)")
+
+
+        let shadow = NSShadow()
+        shadow.shadowBlurRadius = 3
+        shadow.shadowOffset = CGSize(width: 0, height: 0)
+        shadow.shadowColor = UIColor.black.withAlphaComponent(1)
+
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13),
+                          NSAttributedString.Key.foregroundColor: UIColor.black]
+        let subAttrs = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15),
+                        NSAttributedString.Key.backgroundColor: UIColor.white.withAlphaComponent(0.1),
+                        NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.1),
+                        NSAttributedString.Key.shadow: shadow]
+        let testAttributeStr = "0012345612345612345612300".ddy.change("123", subAttrs, attributes)
+
+        var label = UILabel()
+        label.attributedText = testAttributeStr
+        label.ddy.borderRadius(2, true, 1, UIColor.black)
+        // 扩展 内边距(因为扩展属性，用到setter，所以var声明变量)
+        label.ddy.contentEdgeInsets = UIEdgeInsets(top: 15, left: 10, bottom: 10, right: 10)
+        view.addSubview(label)
+        label.snp.makeConstraints { (make) in
+            make.left.equalTo(view.snp_left).offset(70)
+            make.top.equalTo(view.snp_top).offset(180)
+        }
     }
 
     private func testExtensionLabel() {
@@ -107,6 +141,24 @@ class ViewController: UIViewController {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image ?? nil
+    }
+
+
+    private func testNil() {
+        var dict1: [String: String?] = [:]
+        var dict2: [String: String?] = [:]
+        dict1 = ["key": "value"]
+        dict2 = ["key": "value"]
+
+        func justReturn() -> String? {
+            return nil
+        }
+
+        dict1["key"] = justReturn()
+        dict2["key"] = nil
+
+        print("\(dict1) \(dict1.keys) \(dict1.values)")
+        print("\(dict2) \(dict2.keys) \(dict2.values)")
     }
 }
 
