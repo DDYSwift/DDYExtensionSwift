@@ -182,6 +182,21 @@ extension DDYWrapperProtocol where DDYT : UIView {
             }
         }
     }
+
+    /// 截图(如果想带导航则用导航控制器的view或keywindow)
+    public func snapshotImage() -> UIImage? {
+        UIGraphicsBeginImageContext(ddyValue.bounds.size)
+        if ddyValue.responds(to: #selector(UIView.drawHierarchy(in:afterScreenUpdates:))) {
+            ddyValue.drawHierarchy(in: ddyValue.bounds, afterScreenUpdates: false)
+        } else if ddyValue.layer.responds(to: #selector(CALayer.render(in:) )) {
+            ddyValue.layer.render(in: UIGraphicsGetCurrentContext()!)
+        } else {
+            return nil
+        }
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
 }
 
 /**
