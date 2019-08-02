@@ -8,10 +8,25 @@ public enum DDYButtonStyle: Int {
     case imageBottom    = 4 // 下图上文
 }
 
+private var enlargedKey: UInt8 = 0
 private var styleKey: Void?
 private var paddingKey: Void?
 
 extension DDYWrapperProtocol where DDYT : UIButton {
+
+    /// 扩大热区(可点击区域)
+    var enlargedEdge: UIEdgeInsets {
+        get {
+            guard let contentEdgeInsets = objc_getAssociatedObject(ddyValue, &enlargedKey) as? UIEdgeInsets else {
+                return UIEdgeInsets.zero
+            }
+            return contentEdgeInsets
+        }
+        set {
+            objc_setAssociatedObject(ddyValue, &enlargedKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+        }
+    }
+
     /// 设置图文样式(不可逆，一旦设置不能百分百恢复系统原来样式)
     var style: DDYButtonStyle {
         get {
@@ -59,7 +74,26 @@ extension DDYWrapperProtocol where DDYT : UIButton {
 
 extension UIButton {
     public static func ddySwizzleMethod() {
+        ddySwizzle(#selector(point(inside:with:)), #selector(ddyPoint(inside:with:)), swizzleClass: self)
         ddySwizzle(#selector(layoutSubviews), #selector(ddyLayoutSubviews), swizzleClass: self)
+    }
+
+    @objc private func ddyPoint(inside point: CGPoint, with event: UIEvent?) -> Bool {
+
+        func myABS(_ number: CGFloat) -> CGFloat {
+            return CGFloat(fabsf(Float(number)))
+        }
+        if self.ddyPoint(inside: point, with: event) {
+            return true
+        } else {
+            let x = self.bounds.minX - myABS(self.ddy.enlargedEdge.left)
+            let y = self.bounds.minY - myABS(self.ddy.enlargedEdge.top)
+            let w = self.bounds.width + myABS(self.ddy.enlargedEdge.left) + myABS(self.ddy.enlargedEdge.right)
+            let h = self.bounds.height + myABS(self.ddy.enlargedEdge.top) + myABS(self.ddy.enlargedEdge.bottom)
+            let rect = CGRect(x: x, y: y, width: w, height: h)
+            let result = rect.contains(point)
+            return result
+        }
     }
 
     @objc private func ddyLayoutSubviews() {
