@@ -171,7 +171,8 @@ class DDYCrypt: NSObject {
             if encode {
                 resultString = cryptData!.base64EncodedString(options: .lineLength64Characters)
             } else {
-                resultString = NSString(data:cryptData! as Data ,encoding:String.Encoding.utf8.rawValue) as String?
+                // resultString = NSString(data:cryptData! as Data ,encoding:String.Encoding.utf8.rawValue) as String?
+                resultString = String(data: cryptData! as Data, encoding: .utf8)
             }
         }
         return resultString
