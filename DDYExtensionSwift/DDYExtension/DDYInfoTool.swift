@@ -315,12 +315,18 @@ func ddyLog<N>(_ message: N) {
     #endif
 }
 
+func DDYPrint<M>(_ message: M) {
+    if _isDebugAssertConfiguration() {
+        print("\(message)")
+    }
+}
+
 func requestHost() -> String {
     #if DEBUG
     return "http://10.10.8.22:9214"
     #elseif ONLINEDEBUG
-    return "http://online-test.idengyun.com"
+    return "http://online.imaicai.baobaoaichi.com"
     #else
-    return "http://app.iblln.com"
+    return "http://imaicai.baobaoaichi.com"
     #endif
 }
