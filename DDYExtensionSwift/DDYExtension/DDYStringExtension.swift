@@ -17,7 +17,7 @@ extension DDYWrapperProtocol where DDYT == String {
     }
 
     /// 顺序查找指定子串，每个字符只扫描一次，不重复扫描。返回Range数组
-    func ranges(of string: String) -> [Range<String.Index>] {
+    func rangesArray(of string: String) -> [Range<String.Index>] {
         var rangeArray = [Range<String.Index>]()
         var searchedRange: Range<String.Index>
         guard let sr = ddyValue.range(of: ddyValue) else {
@@ -35,8 +35,8 @@ extension DDYWrapperProtocol where DDYT == String {
     }
 
     /// 顺序查找指定子串，每个字符只扫描一次，不重复扫描。返回NSRange数组
-    func nsranges(of string: String) -> [NSRange] {
-        return ranges(of: string).map {
+    func nsrangesArray(of string: String) -> [NSRange] {
+        return rangesArray(of: string).map {
             NSRange($0, in: ddyValue)
         }
     }
@@ -87,6 +87,63 @@ extension DDYWrapperProtocol where DDYT == String {
         }
         return ddyValue
     }
+
+    /// 判断是否存在汉字
+    func isIncludeChinese() -> Bool {
+        for ch in ddyValue.unicodeScalars {
+            // 中文字符一般指的范围：0x4e00 ~ 0x9fff
+            if (0x4e00 < ch.value  && ch.value < 0x9fff) {
+                return true
+            }
+        }
+        return false
+    }
+
+    /// 转拼音
+    public func convertToPinYin(_ trimWhiteispace: Bool) -> String? {
+
+        let strRef = NSMutableString.init(string: ddyValue) as CFMutableString
+        // 转换带音标的拼音
+        CFStringTransform(strRef, nil, kCFStringTransformToLatin, false)
+        // 去掉音标
+        CFStringTransform(strRef, nil, kCFStringTransformStripCombiningMarks, false)
+        // 是否去掉空格
+        let endStr = strRef as String
+        return trimWhiteispace ? endStr.replacingOccurrences(of: " ", with: "") : endStr
+    }
+
+    /// Unicode转码
+    public func unicodeToString() -> String? {
+        let tempStr1 = ddyValue.replacingOccurrences(of: "\\u", with: "\\U")
+        let tempStr2 = tempStr1.replacingOccurrences(of: "\"", with: "\\\"")
+        let tempStr3 = "\"".appending(tempStr2).appending("\"")
+        let tempData = tempStr3.data(using: String.Encoding.utf8)
+        var returnStr:String = ""
+        do {
+            returnStr = try PropertyListSerialization.propertyList(from: tempData!, options: [.mutableContainers], format: nil) as! String
+        } catch {
+            print(error)
+        }
+        return returnStr.replacingOccurrences(of: "\\r\\n", with: "\n")
+    }
+
+    /// 转富文本改变子串属性
+    public func change(_ subStr: String,_ subAttrs: [NSAttributedString.Key : Any],_ otherAttrs:[NSAttributedString.Key : Any]? = nil) -> NSMutableAttributedString {
+
+        let attributeStr = NSMutableAttributedString(string: ddyValue, attributes: otherAttrs)
+
+        guard var searchedRange = ddyValue.range(of: ddyValue) else {
+            return attributeStr
+        }
+        var resultRange = ddyValue.range(of: subStr, options: .regularExpression, range: searchedRange, locale: nil)
+        while let range = resultRange {
+            attributeStr.addAttributes(subAttrs, range: NSRange(range, in: ddyValue))
+            searchedRange = Range(uncheckedBounds: (range.upperBound, searchedRange.upperBound))
+            resultRange = ddyValue.range(of: subStr, options: .regularExpression, range: searchedRange, locale: nil)
+        }
+        return attributeStr
+    }
+
 }
 
 // 下标截取任意位置的便捷方法
