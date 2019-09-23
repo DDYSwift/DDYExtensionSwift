@@ -7,42 +7,34 @@ extension String: DDYNameSpaceProtocol { }
 
 extension DDYWrapperProtocol where DDYT == String {
 
-    /// 去掉两端空格和换行符
-    public func trimWhiteispaceAndNewline() -> String {
-        return ddyValue.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-    }
-    /// 去掉指定字符集中字符
-    public func trimPerCharacter(in characterStr: String) -> String {
-        return ddyValue.trimmingCharacters(in: CharacterSet.init(charactersIn: characterStr))
-    }
-
-    /// 顺序查找指定子串，每个字符只扫描一次，不重复扫描。返回Range数组
-    func rangesArray(of string: String) -> [Range<String.Index>] {
-        var rangeArray = [Range<String.Index>]()
-        var searchedRange: Range<String.Index>
-        guard let sr = ddyValue.range(of: ddyValue) else {
-            return rangeArray
+    /// 是否包含Emoji
+    var containEmoji: Bool {
+        // http://stackoverflow.com/questions/30757193/find-out-if-character-in-string-is-emoji
+        for scalar in ddyValue.unicodeScalars {
+            switch scalar.value {
+            case 0x1F600...0x1F64F, // Emoticons
+            0x1F300...0x1F5FF, // Misc Symbols and Pictographs
+            0x1F680...0x1F6FF, // Transport and Map
+            0x1F1E6...0x1F1FF, // Regional country flags
+            0x2600...0x26FF, // Misc symbols
+            0x2700...0x27BF, // Dingbats
+            0xE0020...0xE007F, // Tags
+            0xFE00...0xFE0F, // Variation Selectors
+            0x1F900...0x1F9FF, // Supplemental Symbols and Pictographs
+            127000...127600, // Various asian characters
+            65024...65039, // Variation selector
+            9100...9300, // Misc items
+            8400...8447: // Combining Diacritical Marks for Symbols
+                return true
+            default:
+                continue
+            }
         }
-        searchedRange = sr
-
-        var resultRange = ddyValue.range(of: string, options: .regularExpression, range: searchedRange, locale: nil)
-        while let range = resultRange {
-            rangeArray.append(range)
-            searchedRange = Range(uncheckedBounds: (range.upperBound, searchedRange.upperBound))
-            resultRange = ddyValue.range(of: string, options: .regularExpression, range: searchedRange, locale: nil)
-        }
-        return rangeArray
-    }
-
-    /// 顺序查找指定子串，每个字符只扫描一次，不重复扫描。返回NSRange数组
-    func nsrangesArray(of string: String) -> [NSRange] {
-        return rangesArray(of: string).map {
-            NSRange($0, in: ddyValue)
-        }
+        return false
     }
 
     /// json字符串格式化输出
-    public func jsonFormat() -> String {
+    var jsonFormat: String {
 
         if (ddyValue.starts(with: "{") || ddyValue.starts(with: "[")) {
             var level = 0
@@ -87,6 +79,42 @@ extension DDYWrapperProtocol where DDYT == String {
         }
         return ddyValue
     }
+
+    /// 去掉两端空格和换行符
+    public func trimChars(_ set: CharacterSet = CharacterSet.whitespacesAndNewlines) -> String {
+        return ddyValue.trimmingCharacters(in: set)
+    }
+    /// 去掉指定字符集中字符
+    public func trimPerCharacter(in characterStr: String) -> String {
+        return ddyValue.trimmingCharacters(in: CharacterSet.init(charactersIn: characterStr))
+    }
+
+    /// 顺序查找指定子串，每个字符只扫描一次，不重复扫描。返回Range数组
+    func rangesArray(of string: String) -> [Range<String.Index>] {
+        var rangeArray = [Range<String.Index>]()
+        var searchedRange: Range<String.Index>
+        guard let sr = ddyValue.range(of: ddyValue) else {
+            return rangeArray
+        }
+        searchedRange = sr
+
+        var resultRange = ddyValue.range(of: string, options: .regularExpression, range: searchedRange, locale: nil)
+        while let range = resultRange {
+            rangeArray.append(range)
+            searchedRange = Range(uncheckedBounds: (range.upperBound, searchedRange.upperBound))
+            resultRange = ddyValue.range(of: string, options: .regularExpression, range: searchedRange, locale: nil)
+        }
+        return rangeArray
+    }
+
+    /// 顺序查找指定子串，每个字符只扫描一次，不重复扫描。返回NSRange数组
+    func nsrangesArray(of string: String) -> [NSRange] {
+        return rangesArray(of: string).map {
+            NSRange($0, in: ddyValue)
+        }
+    }
+
+
 
     /// 判断是否存在汉字
     func isIncludeChinese() -> Bool {

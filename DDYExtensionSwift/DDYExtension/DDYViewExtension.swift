@@ -207,3 +207,11 @@ extension DDYWrapperProtocol where DDYT : UIView {
 
  view.ddy.removeAllChildView()
  */
+
+
+//extension UILabel {
+//    @_dynamicReplacement(for: layoutSubviews())
+//    func ddyLayoutSubviews() {
+//        print("交换成功了")
+//    }
+//}
