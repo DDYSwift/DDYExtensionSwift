@@ -91,3 +91,7 @@ extension LayoutConstraintItem {
     
 }
 private var constraintsKey: UInt8 = 0
+/*
+ set { objc_setAssociatedObject(self, #function, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC) }
+ get { return objc_getAssociatedObject(self, #function) as? TCPetSprite }
+ */

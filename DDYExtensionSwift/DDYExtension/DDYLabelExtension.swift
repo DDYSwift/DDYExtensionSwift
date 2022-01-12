@@ -20,10 +20,12 @@ extension DDYWrapperProtocol where DDYT : UILabel {
     }
 }
 
+private var shimmerKey: UInt8 = 0
 extension UILabel {
     public static func ddySwizzleMethod() {
         ddySwizzle(#selector(UILabel.textRect(forBounds:limitedToNumberOfLines:)), #selector(ddyTextRect(_:_:)), swizzleClass: self)
         ddySwizzle(#selector(UILabel.drawText(in:)), #selector(ddyDrawText(in:)), swizzleClass: self)
+        ddySwizzle(#selector(layoutSubviews), #selector(ddyLayoutSubviews), swizzleClass: self)
     }
 
     @objc private func ddyTextRect(_ bounds: CGRect,_ numberOfLines: Int) -> CGRect {
@@ -37,6 +39,42 @@ extension UILabel {
     
     @objc private func ddyDrawText(in rect: CGRect) {
         self.ddyDrawText(in: rect.inset(by: self.ddy.contentEdgeInsets))
+    }
+    
+    private var shimmerLayer: CAGradientLayer {
+        get {
+            if let tempLayer = objc_getAssociatedObject(self, &shimmerKey) as? CAGradientLayer {
+                return tempLayer
+            } else {
+                let tempLayer = CAGradientLayer()
+                objc_setAssociatedObject(self, &shimmerKey, tempLayer, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                return tempLayer
+            }
+        }
+        set { objc_setAssociatedObject(self, &shimmerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+    }
+    
+    func startAnimate() {
+        shimmerLayer.colors = [UIColor.clear.cgColor,UIColor.white.cgColor,UIColor.clear.cgColor,]
+        shimmerLayer.locations = [0, 0.5, 1]
+        layer.mask = shimmerLayer
+        addAnimation()
+    }
+    
+    @objc private func ddyLayoutSubviews() {
+        //ddyLayoutSubviews()
+        layer.mask?.frame = self.frame
+        addAnimation()
+    }
+    
+    private func addAnimation() {
+        shimmerLayer.removeAllAnimations()
+        let animation = CABasicAnimation(keyPath: "transform.translation.x")
+        animation.fromValue = -self.frame.size.width
+        animation.toValue = self.frame.size.width
+        animation.duration = 5.0
+        animation.repeatCount = .infinity
+        shimmerLayer.add(animation, forKey: "animationKey")
     }
 }
 

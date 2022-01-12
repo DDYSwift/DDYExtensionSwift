@@ -113,10 +113,18 @@ class DDYInfoTool: NSObject {
         case "iPhone10,5":  return "iPhone 8 Plus"
         case "iPhone10,3":  return "iPhone X"
         case "iPhone10,6":  return "iPhone X"
-        case "iPhone11,8":  return "iPhone XR";
-        case "iPhone11,2":  return "iPhone XS";
-        case "iPhone11,4":  return "iPhone XS Max";
-        case "iPhone11,6":  return "iPhone XS Max";
+        case "iPhone11,2":  return "iPhone XS"
+        case "iPhone11,4":  return "iPhone XS Max"
+        case "iPhone11,6":  return "iPhone XS Max"
+        case "iPhone11,8":  return "iPhone XR"
+        case "iPhone12,1":  return "iPhone 11"
+        case "iPhone12,3":  return "iPhone 11Pro"
+        case "iPhone12,5":  return "iPhone 11 ProMax"
+        case "iPhone12,8":  return "iPhone SE2"
+        case "iPhone13,1":  return "iPhone 12 Mini"
+        case "iPhone13,2":  return "iPhone 12"
+        case "iPhone13,3":  return "iPhone 12 Pro"
+        case "iPhone13,4":  return "iPhone 12 ProMax"
 
 
         case "iPod1,1":     return "iPod Touch 1G"

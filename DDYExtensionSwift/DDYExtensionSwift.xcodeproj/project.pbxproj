@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		037B4A3F2578804F00C4451A /* TestExLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037B4A3E2578804F00C4451A /* TestExLabel.swift */; };
 		037D161D22EDE0E700F4B244 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037D161C22EDE0E700F4B244 /* AppDelegate.swift */; };
 		037D161F22EDE0E700F4B244 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037D161E22EDE0E700F4B244 /* ViewController.swift */; };
 		037D162222EDE0E700F4B244 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 037D162022EDE0E700F4B244 /* Main.storyboard */; };
@@ -62,6 +63,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		037B4A3E2578804F00C4451A /* TestExLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExLabel.swift; sourceTree = "<group>"; };
 		037D161922EDE0E700F4B244 /* DDYExtensionSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DDYExtensionSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		037D161C22EDE0E700F4B244 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		037D161E22EDE0E700F4B244 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			children = (
 				037D161C22EDE0E700F4B244 /* AppDelegate.swift */,
 				037D161E22EDE0E700F4B244 /* ViewController.swift */,
+				037B4A3E2578804F00C4451A /* TestExLabel.swift */,
 				037D162022EDE0E700F4B244 /* Main.storyboard */,
 				037D162322EDE0EA00F4B244 /* Assets.xcassets */,
 				037D162522EDE0EA00F4B244 /* LaunchScreen.storyboard */,
@@ -317,6 +320,7 @@
 				037D167A22EDE49900F4B244 /* Typealiases.swift in Sources */,
 				037D168222EDE49900F4B244 /* ConstraintItem.swift in Sources */,
 				037D167922EDE49900F4B244 /* ConstraintLayoutSupport.swift in Sources */,
+				037B4A3F2578804F00C4451A /* TestExLabel.swift in Sources */,
 				037D163D22EDE1CC00F4B244 /* DDYLabelExtension.swift in Sources */,
 				037D168422EDE49900F4B244 /* Debugging.swift in Sources */,
 				037D168522EDE49900F4B244 /* ConstraintRelatableTarget.swift in Sources */,
@@ -486,16 +490,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X634X4Y33S;
+				DEVELOPMENT_TEAM = AS43JR7V78;
 				INFOPLIST_FILE = DDYExtensionSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dengyun.dengyunblln;
+				PRODUCT_BUNDLE_IDENTIFIER = tw.orangelab.werewolf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -505,16 +511,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X634X4Y33S;
+				DEVELOPMENT_TEAM = AS43JR7V78;
 				INFOPLIST_FILE = DDYExtensionSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dengyun.dengyunblln;
+				PRODUCT_BUNDLE_IDENTIFIER = tw.orangelab.werewolf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

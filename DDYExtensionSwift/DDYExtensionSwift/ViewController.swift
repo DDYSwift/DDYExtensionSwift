@@ -19,6 +19,8 @@ class ViewController: UIViewController {
         testExtensionButton()
         testImageView()
         testNil()
+        testSub()
+        testThree()
     }
 
     private func testImageView() {
@@ -156,9 +158,31 @@ class ViewController: UIViewController {
 
         dict1["key"] = justReturn()
         dict2["key"] = nil
-
+        // dict1 和 dict2 最终结果
         print("\(dict1) \(dict1.keys) \(dict1.values)")
         print("\(dict2) \(dict2.keys) \(dict2.values)")
+    }
+    
+    private func testSub() {
+        let array1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        let array2 = array1.suffix(from: 6) //Array(array1.suffix(from: 6))
+        print("\(array1)")
+        print("\(array2)")
+//        let num1 = array1[0]
+//        let num2 = array2[0]
+//        print("\(num1) \(num2)")
+    }
+    
+    private func testThree() {
+        
+        let label = UILabel()
+        label.text = "我是谁WhoImI"
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .red
+        label.textAlignment = .center
+        label.frame = CGRect(x: 30, y: 300, width: 100, height: 20)
+        view.addSubview(label)
+        label.startAnimate()
     }
 }
 
